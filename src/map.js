@@ -17,7 +17,8 @@ export default function initMap(ymaps, containerId) {
     clusterDisableClickZoom: false,
     geoObjectOpenBalloonOnClick: false,
     geoObjectHideIconOnBalloonOpen: false,
-    geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps)
+    geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps),
+    geoObjectBalloonPanelMaxMapArea: 0
   });
 
   objectManager.clusters.options.set('preset', 'islands#blueClusterIcons');
@@ -47,9 +48,7 @@ export default function initMap(ymaps, containerId) {
   // details
   objectManager.objects.events.add('click', event => {
     const objectId = event.get('objectId');
-    console.log('objectId:', objectId);
     const obj = objectManager.objects.getById(objectId);
-    console.log('obj: ', obj);
 
     objectManager.objects.balloon.open(objectId);
 

@@ -18,7 +18,8 @@ export function getDetailsContentLayout(ymaps) {
             </div>
             <div class="details-info">
                 <div class="details-label">connections</div>
-                <canvas class="details-chart" width="270" height="100" />
+                <!--фикс обрезки тултипа-->
+                <canvas class="details-chart" width="300" height="100" />
             </div>
         {% else %}
             <div class="details-info">
@@ -27,7 +28,8 @@ export function getDetailsContentLayout(ymaps) {
         {% endif %}
     `,
     {
-      build: () => {
+      //стрелочные функции не имеют своего this
+      build: function() {
         BalloonContentLayout.superclass.build.call(this);
 
         const { details } = this.getData().object.properties;
@@ -42,8 +44,8 @@ export function getDetailsContentLayout(ymaps) {
           );
         }
       },
-
-      clear: () => {
+      //стрелочные функции не имеют своего this
+      clear: function() {
         if (this.connectionChart) {
           this.connectionChart.destroy();
         }
