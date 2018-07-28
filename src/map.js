@@ -1,14 +1,17 @@
 import { loadList, loadDetails } from './api';
-import { getDetailsContentLayout } from './details';
-import { createFilterControl } from './filter';
+import getDetailsContentLayout from './details';
+import createFilterControl from './filter';
 
 // модуль экспортирует одно значение, можно использовать export default
 export default function initMap(ymaps, containerId) {
   const myMap = new ymaps.Map(containerId, {
     center: [55.76, 37.64],
-    // controls: [],
+    controls: ['default'],
     zoom: 10
   });
+
+  // будем считать,что показ пробок здесь не нужен
+  myMap.controls.remove('trafficControl');
 
   const objectManager = new ymaps.ObjectManager({
     clusterize: true,
@@ -23,7 +26,7 @@ export default function initMap(ymaps, containerId) {
 
   objectManager.clusters.options.set('preset', 'islands#blueClusterIcons');
 
-  // ищем кластеры с нективными станциями и подкрашиваем красным
+  // ищем кластеры с неактивными станциями и подкрашиваем красным
   objectManager.clusters.events.add('add', (event) => {
     const cluster = objectManager.clusters.getById(event.get('objectId'));
     const objects = cluster.properties.geoObjects;
@@ -50,13 +53,19 @@ export default function initMap(ymaps, containerId) {
     const objectId = event.get('objectId');
     const obj = objectManager.objects.getById(objectId);
 
-    objectManager.objects.balloon.open(objectId);
-
+    // открываем балун, только если есть информация по нему (в объекте или по api),
+    // иначе выкидываем ошибку через alert
     if (!obj.properties.details) {
       loadDetails(objectId).then(data => {
-        obj.properties.details = data;
-        objectManager.objects.balloon.setData(obj);
+        if (data) {
+          objectManager.objects.balloon.open(objectId);
+
+          obj.properties.details = data;
+          objectManager.objects.balloon.setData(obj);
+        }
       });
+    } else {
+      objectManager.objects.balloon.open(objectId);
     }
   });
 

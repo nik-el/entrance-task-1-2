@@ -1,4 +1,4 @@
-import { Chart } from 'chart.js';
+import Chart from 'chart.js';
 
 function getColor(isActive, alpha = 1) {
   return isActive
@@ -15,7 +15,7 @@ function getLabel(el, i, data) {
   return x.toString();
 }
 
-export function createChart(container, data, isActive) {
+export default function createChart(container, data, isActive) {
   const ctx = container.getContext('2d');
 
   const borderColor = getColor(isActive);
@@ -43,20 +43,18 @@ export function createChart(container, data, isActive) {
         titleFontSize: 8,
       },
       scales: {
-        xAxes:
-            [{
-                ticks: {
-                  display: false
-                }
-              }],
-        yAxes:
-            [{
-                ticks: {
-                  beginAtZero: true
-                },
-                // отрицательных подключений при данном условии быть не должно
-                min: 0
-              }]
+        xAxes: [
+          {
+            ticks: { display: false }
+          }
+        ],
+        yAxes: [
+          {
+            ticks: { beginAtZero: true },
+            // отрицательных подключений при данном условии быть не должно
+            min: 0
+          }
+        ]
       }
     }
   });

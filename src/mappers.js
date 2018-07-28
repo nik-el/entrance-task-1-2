@@ -1,13 +1,13 @@
-export function mapServerData(serverData) {
+export default function mapServerData(serverData) {
   return {
-    type: "FeatureCollection",
+    type: 'FeatureCollection',
     features: serverData.map((obj, index) => ({
       id: index,
-      type: "Feature",
+      type: 'Feature',
       isActive: obj.isActive,
       geometry: 
       {
-        type: "Point",
+        type: 'Point',
         // перепутаны координаты
         coordinates: [obj.lat, obj.long]
       },
