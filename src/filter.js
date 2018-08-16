@@ -9,7 +9,7 @@ const FILTERS = [
   }
 ];
 
-export default function createFilterControl(ymaps) {
+export default function createFilterControl (ymaps) {
   const filterItems = FILTERS
     .map(obj =>
       new ymaps.control.ListBoxItem({

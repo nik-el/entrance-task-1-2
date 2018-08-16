@@ -1,11 +1,11 @@
-export default function mapServerData(serverData) {
+export default function mapServerData (serverData) {
   return {
     type: 'FeatureCollection',
     features: serverData.map((obj, index) => ({
       id: index,
       type: 'Feature',
       isActive: obj.isActive,
-      geometry: 
+      geometry:
       {
         type: 'Point',
         // перепутаны координаты
@@ -21,7 +21,7 @@ export default function mapServerData(serverData) {
   };
 }
 
-function getObjectPreset(obj) {
+function getObjectPreset (obj) {
   return obj.isActive
     ? 'islands#blueCircleDotIconWithCaption'
     : 'islands#redCircleDotIconWithCaption';

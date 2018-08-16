@@ -3,7 +3,7 @@ import getDetailsContentLayout from './details';
 import createFilterControl from './filter';
 
 // модуль экспортирует одно значение, можно использовать export default
-export default function initMap(ymaps, containerId) {
+export default function initMap (ymaps, containerId) {
   const myMap = new ymaps.Map(containerId, {
     center: [55.76, 37.64],
     controls: ['default'],

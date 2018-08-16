@@ -1,6 +1,6 @@
 import createChart from './chart';
 
-export default function getDetailsContentLayout(ymaps) {
+export default function getDetailsContentLayout (ymaps) {
   const BalloonContentLayout = ymaps.templateLayoutFactory.createClass(`
     <div class="details-info">
       {% if (properties.details) %}
@@ -30,7 +30,7 @@ export default function getDetailsContentLayout(ymaps) {
   `,
   {
     // при использовании стрелочной функции теряется контекст
-    build: function() {
+    build: function () {
       BalloonContentLayout.superclass.build.call(this);
 
       const { details } = this.getData().object.properties;
@@ -46,7 +46,7 @@ export default function getDetailsContentLayout(ymaps) {
       }
     },
     // при использовании стрелочной функции теряется контекст
-    clear: function() {
+    clear: function () {
       if (this.connectionChart) {
         this.connectionChart.destroy();
       }

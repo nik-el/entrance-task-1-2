@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "test": "semistandard"
+  },
+  "semistandard": {
+    "globals": [ "fetch", "ymaps", "alert"]
   },
   "devDependencies": {
     "faker": "^4.1.0",
+    "semistandard": "^12.0.1",
     "webpack": "^4.16.0",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
