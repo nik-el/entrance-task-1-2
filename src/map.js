@@ -24,22 +24,6 @@ export default function initMap(ymaps, containerId) {
     geoObjectBalloonPanelMaxMapArea: 0
   });
 
-  objectManager.clusters.options.set('preset', 'islands#blueClusterIcons');
-
-  // ищем кластеры с неактивными станциями и подкрашиваем красным
-  objectManager.clusters.events.add('add', (event) => {
-    const cluster = objectManager.clusters.getById(event.get('objectId'));
-    const objects = cluster.properties.geoObjects;
-    for (const it of objects) {
-      if (!it.isActive) {
-        objectManager.clusters.setClusterOptions(cluster.id, {
-          preset: 'islands#redClusterIcons'
-        });
-        break;
-      }
-    }
-  });
-
   loadList().then(data => {
     objectManager.add(data);
     // согласно API, для отображения точек необходимо добавить коллекцию на карту через geoObjects.add
